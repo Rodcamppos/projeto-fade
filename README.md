@@ -39,8 +39,7 @@ npm run dev
 ```
 
 Acesse http://localhost:5173.
-
-As credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente para o desafio, são estes:
+As credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente para o desafio, são estas abaixo:
 
 E-mail: admin@fade.org.br
 
