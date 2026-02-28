@@ -47,7 +47,7 @@ Senha: 123456
 
 ## 📐 Arquitetura
 
-O projeto utiliza uma estrutura modular separando componentes de UI, páginas de negócio e utilitários de validação (src/utils/checkinValidator.ts). Assim, a segurança é garantida por um componente PrivateRoute que pude criar ao longo do código que intercepta o acesso de usuários não autenticados.
+O projeto utiliza uma estrutura modular separando componentes de UI, páginas de negócio e utilitários de validação (src/utils/checkinValidator.ts). Analogamente, a segurança é garantida por um componente PrivateRoute que pude criar ao longo do código que intercepta o acesso de usuários não autenticados.
 
 
 
