@@ -42,8 +42,8 @@ Acesse http://localhost:5173.
 
 As credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente para o desafio, são estes:
 
-# E-mail: admin@fade.org.br
-# Senha: 123456
+E-mail: admin@fade.org.br
+Senha: 123456
 
 ## 📐 Arquitetura
 
