@@ -1,73 +1,107 @@
-# React + TypeScript + Vite
+🚀 Sistema de Eventos (Painel do Organizador) - Desafio Técnico FADE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web desenvolvida em React 19 e TypeScript para gerenciamento de eventos, participantes e configurações de check-in. Este projeto foi estruturado para atender aos critérios de alta maturidade técnica e escalabilidade exigidos no desafio técnico em questão.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+🛠️ Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. React 19 & Vite v7: Usei as versões mais recentes para garantir que o sistema seja rápido e moderno.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. TypeScript: Evita erros bobos de digitação e garante que os dados (como os dos participantes) estejam sempre corretos.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Tailwind CSS v4: Permite criar um visual bonito e profissional de forma muito rápida.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+4. Context API: É o "cérebro" que controla quem está logado e protege as páginas restritas.
+
+
+
+5. Recharts: Transforma os números de check-in em um gráfico fácil de entender no Dashboard.
+
+
+
+6. React Hot Toast: Utilizado para criar feedbacks visuais e alertas de conflitos de regras, caso existam.
+
+
+
+🔑 Funcionalidades
+
+Autenticação: Sistema de login que protege suas informações e garante que apenas pessoas autorizadas acessem o painel e os eventos.
+
+
+
+Dashboard: Painel completo onde você vê, de cara, quantos eventos e participantes possui, além de um gráfico que mostra o movimento dos check-ins.
+
+
+
+Gestão de Participantes: Pode-se buscar pessoas rapidamente por nome ou e-mail e tem a facilidade de transferir um participante de um evento para outro com apenas alguns cliques.
+
+
+
+Configuração de Check-in:
+
+
+
+Regras dinâmicas, com QR Code, Documento, etc.
+
+
+
+Validador de janelas de tempo, impedindo conflitos entre regras obrigatórias com o mesmo intervalo de tempo (na mesma hora).
+
+
+
+Alertas visuais que notificão imediatamente o sistema ao detectar inconsistências na configuração.
+
+
+
+🚀 Instalação e Uso
+
+Primeiro, é necessário instalar as dependências:
+
+
+
+Bash
+
+npm install
+
+
+
+Inicie o ambiente de desenvolvimento:
+
+
+
+Bash
+
+npm run dev
+
+
+
+Acesse http://localhost:5173.
+
+
+
+Credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente desta forma:
+
+
+
+E-mail: admin@fade.org.br
+
+
+
+Senha: 123456
+
+
+
+📐 Arquitetura
+
+O projeto utiliza uma estrutura modular separando componentes de UI, páginas de negócio e utilitários de validação (src/utils/checkinValidator.ts). Assim, a segurança é garantida por um componente PrivateRoute que pude criar ao longo do código que intercepta o acesso de usuários não autenticados.
+
+
+
+Desenvolvido por: Rodrigo Campos - Estudante de Engenharia de Computação pela Escola Politécnica de Pernambuco (Poli-UPE)
