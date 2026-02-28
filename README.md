@@ -28,39 +28,22 @@ Configuração de Check-in:
 
 Primeiro, é necessário instalar as dependências:
 
-
-
-Bash
-
+```bash
 npm install
-
-
+```
 
 Inicie o ambiente de desenvolvimento:
 
-
-
-Bash
-
+```bash
 npm run dev
-
-
+```
 
 Acesse http://localhost:5173.
 
+As credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente para o desafio, são estes:
 
-
-Credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente desta forma:
-
-
-
-E-mail: admin@fade.org.br
-
-
-
-Senha: 123456
-
-
+# E-mail: admin@fade.org.br
+# Senha: 123456
 
 ## 📐 Arquitetura
 
