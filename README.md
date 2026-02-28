@@ -1,8 +1,8 @@
-## 🚀 Sistema de Eventos (Painel do Organizador) - Desafio Técnico FADE
+## 👨‍💻 Sistema de Eventos (Painel do Organizador) - Desafio Técnico FADE
 
 Aplicação web desenvolvida em React 19 e TypeScript para gerenciamento de eventos, participantes e configurações de check-in. Este projeto foi estruturado para atender aos critérios de alta maturidade técnica e escalabilidade exigidos no desafio técnico em questão.
 
-### 🛠️ Tecnologias
+### 💻 Tecnologias
 
 1. React 19 & Vite v7: Usei as versões mais recentes para garantir que o sistema seja rápido e moderno.
 2. TypeScript: Evita erros bobos de digitação e garante que os dados (como os dos participantes) estejam sempre corretos.
@@ -11,7 +11,7 @@ Aplicação web desenvolvida em React 19 e TypeScript para gerenciamento de even
 5. Recharts: Transforma os números de check-in em um gráfico fácil de entender no Dashboard.
 6. React Hot Toast: Utilizado para criar feedbacks visuais e alertas de conflitos de regras, caso existam.
 
-### 🔑 Funcionalidades
+### 🛠️ Funcionalidades
 
 Autenticação: Sistema de login que protege suas informações e garante que apenas pessoas autorizadas acessem o painel e os eventos.
 
@@ -42,9 +42,9 @@ Acesse http://localhost:5173.
 
 As credenciais administrativas para acessar o sistema, configuradas unicamente e especificamente para o desafio, são estas abaixo:
 
-**E-mail**: admin@fade.org.br
+**🔐 E-mail**: admin@fade.org.br
 
-**Senha**: 123456
+**🔑 Senha**: 123456
 
 ### 📐 Arquitetura
 
