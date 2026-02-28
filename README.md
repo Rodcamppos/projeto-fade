@@ -22,7 +22,7 @@ Gestão de Participantes: Pode-se buscar pessoas rapidamente por nome ou e-mail 
 Configuração de Check-in:
 - Regras dinâmicas, com QR Code, Documento, etc.
 - Validador de janelas de tempo, impedindo conflitos entre regras obrigatórias com o mesmo intervalo de tempo (na mesma hora).
-- Alertas visuais que notificão imediatamente o sistema ao detectar inconsistências na configuração.
+- Alertas visuais que notificam imediatamente o sistema ao detectar inconsistências na configuração.
 
 ### 🚀 Instalação e Uso
 
