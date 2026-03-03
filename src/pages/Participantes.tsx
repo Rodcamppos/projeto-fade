@@ -130,70 +130,72 @@ export function Participantes() {
       </div>
 
       <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-        <table className="w-full text-left">
-          <thead className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs font-semibold uppercase">
-            <tr>
-              <th className="px-6 py-4">Nome</th>
-              <th className="px-6 py-4">Evento Atual</th>
-              <th className="px-6 py-4">Status</th>
-              <th className="px-6 py-4 text-right">Ações</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {filteredParticipants.length > 0 ? (
-              filteredParticipants.map((p) => (
-                <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="font-medium text-gray-900">{p.nome}</div>
-                    <div className="text-xs text-gray-500">{p.email}</div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{p.eventoVinculado}</td>
-                  <td className="px-6 py-4">
-                    {p.checkIn ? (
-                      <span className="flex items-center gap-1 text-green-600 text-sm font-medium"><CheckCircle2 size={16}/> Confirmado</span>
-                    ) : (
-                      <span className="flex items-center gap-1 text-gray-400 text-sm"><XCircle size={16}/> Pendente</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <button 
-                        onClick={() => setTransferindo(p)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center justify-center"
-                        title="Transferir Participante"
-                      >
-                        <ArrowLeftRight size={18} />
-                      </button>
-                      <button 
-                        onClick={() => removerParticipante(p.id)}
-                        className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors flex items-center justify-center"
-                        title="Remover Participante"
-                      >
-                        <Trash2 size={18} />
-                      </button>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-[600px]">
+            <thead className="bg-gray-50 border-b border-gray-100 text-gray-500 text-xs font-semibold uppercase">
+              <tr>
+                <th className="px-6 py-4">Nome</th>
+                <th className="px-6 py-4">Evento Atual</th>
+                <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {filteredParticipants.length > 0 ? (
+                filteredParticipants.map((p) => (
+                  <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                    <td className="px-6 py-4">
+                      <div className="font-medium text-gray-900">{p.nome}</div>
+                      <div className="text-xs text-gray-500">{p.email}</div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{p.eventoVinculado}</td>
+                    <td className="px-6 py-4">
+                      {p.checkIn ? (
+                        <span className="flex items-center gap-1 text-green-600 text-sm font-medium"><CheckCircle2 size={16}/> Confirmado</span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-gray-400 text-sm"><XCircle size={16}/> Pendente</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button 
+                          onClick={() => setTransferindo(p)}
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center justify-center"
+                          title="Transferir Participante"
+                        >
+                          <ArrowLeftRight size={18} />
+                        </button>
+                        <button 
+                          onClick={() => removerParticipante(p.id)}
+                          className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors flex items-center justify-center"
+                          title="Remover Participante"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4} className="px-6 py-12 text-center">
+                    <div className="flex flex-col items-center justify-center space-y-3">
+                      <div className="p-3 bg-gray-50 rounded-full">
+                        <Users size={40} className="text-gray-300" />
+                      </div>
+                      <div className="max-w-xs mx-auto">
+                        <h3 className="text-sm font-semibold text-gray-900">Lista de presença vazia</h3>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Não encontramos participantes. Você pode cadastrar novos ou verificar os filtros de busca.
+                        </p>
+                      </div>
                     </div>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4} className="px-6 py-12 text-center">
-                  <div className="flex flex-col items-center justify-center space-y-3">
-                    <div className="p-3 bg-gray-50 rounded-full">
-                      <Users size={40} className="text-gray-300" />
-                    </div>
-                    <div className="max-w-xs mx-auto">
-                      <h3 className="text-sm font-semibold text-gray-900">Lista de presença vazia</h3>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Não encontramos participantes. Você pode cadastrar novos ou verificar os filtros de busca.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {isModalOpen && (
