@@ -47,13 +47,23 @@ export function Dashboard() {
   }, [checkinsRealizados, totalInscritos]);
 
   const chartData = useMemo(() => {
-    const horas = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'];
-    
-    return horas.map((hora, index) => {
-      const progresso = (index + 1) / horas.length;
+    const agora = new Date();
+    const formatter = new Intl.DateTimeFormat('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'America/Sao_Paulo'
+    });
+
+    return Array.from({ length: 7 }).map((_, i) => {
+      const horasSubtraidas = (6 - i) * 4; 
+      const dataPonto = new Date(agora.getTime() - horasSubtraidas * 60 * 60 * 1000);
+      const horaFormatada = formatter.format(dataPonto);
+      const progresso = (i + 1) / 7;
+      const totalSimulado = Math.round(checkinsRealizados * progresso);
+
       return {
-        hora,
-        total: Math.round(checkinsRealizados * progresso)
+        hora: horaFormatada,
+        total: totalSimulado
       };
     });
   }, [checkinsRealizados]);
@@ -75,7 +85,6 @@ export function Dashboard() {
         <p className="text-gray-500 font-sans">Acompanhe o desempenho dos seus eventos em tempo real.</p>
       </div>
 
-      {/* Grid Responsivo: 1 coluna no mobile, 2 no tablet (sm), 4 no desktop (lg) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard title="Total Inscritos" value={totalInscritos.toLocaleString()} icon={Users} color="bg-blue-600" />
         <StatCard title="Eventos Ativos" value={eventosAtivos} icon={Calendar} color="bg-indigo-600" />
@@ -85,9 +94,9 @@ export function Dashboard() {
 
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
-          <h3 className="text-lg font-bold text-gray-900">Fluxo de Check-in (Hoje)</h3>
+          <h3 className="text-lg font-bold text-gray-900">Fluxo de Check-in (24h)</h3>
           <span className="text-[10px] w-fit font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase tracking-wider">
-            Atualizado Agora
+            Sincronizado: Horário de Brasília
           </span>
         </div>
         <div className="h-[300px] w-full">
