@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Layout } from '../components/Layout';
-import { Search, ArrowLeftRight, CheckCircle2, XCircle, UserPlus, X, Trash2 } from 'lucide-react';
+import { Search, ArrowLeftRight, CheckCircle2, XCircle, UserPlus, X, Trash2, Filter } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Participante, Evento } from '../types/index';
 
@@ -21,6 +21,7 @@ export function Participantes() {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [checkInFilter, setCheckInFilter] = useState<'Todos' | 'Confirmado' | 'Pendente'>('Todos');
   const [transferindo, setTransferindo] = useState<Participante | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novoParticipante, setNovoParticipante] = useState({ nome: '', email: '', eventoVinculado: EVENTOS_MOCK[0].nome });
@@ -30,11 +31,15 @@ export function Participantes() {
   }, [participantes]);
 
   const filteredParticipants = useMemo(() => {
-    return participantes.filter(p => 
-      p.nome.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      p.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [participantes, searchTerm]);
+    return participantes.filter(p => {
+      const matchesSearch = p.nome.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                            p.email.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCheckIn = checkInFilter === 'Todos' 
+        ? true 
+        : (checkInFilter === 'Confirmado' ? p.checkIn : !p.checkIn);
+      return matchesSearch && matchesCheckIn;
+    });
+  }, [participantes, searchTerm, checkInFilter]);
 
   const executarTransferencia = (novoEventoNome: string) => {
     if (!transferindo) return;
@@ -59,8 +64,10 @@ export function Participantes() {
   };
 
   const removerParticipante = (id: string) => {
-    setParticipantes(prev => prev.filter(p => p.id !== id));
-    toast.success("Participante removido.");
+    if (window.confirm("Tem certeza que deseja remover este participante?")) {
+      setParticipantes(prev => prev.filter(p => p.id !== id));
+      toast.success("Participante removido.");
+    }
   };
 
   return (
@@ -75,7 +82,7 @@ export function Participantes() {
         </button>
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm mb-6 flex gap-4 border border-gray-100">
+      <div className="bg-white p-4 rounded-xl shadow-sm mb-6 flex flex-col md:flex-row gap-4 border border-gray-100">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
@@ -85,6 +92,18 @@ export function Participantes() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+        <div className="flex items-center gap-2">
+          <Filter size={18} className="text-gray-400" />
+          <select 
+            className="border border-gray-200 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            value={checkInFilter}
+            onChange={(e) => setCheckInFilter(e.target.value as any)}
+          >
+            <option value="Todos">Todos os Status</option>
+            <option value="Confirmado">Check-in Realizado</option>
+            <option value="Pendente">Check-in Pendente</option>
+          </select>
         </div>
       </div>
 
@@ -99,40 +118,48 @@ export function Participantes() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {filteredParticipants.map((p) => (
-              <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-6 py-4">
-                  <div className="font-medium text-gray-900">{p.nome}</div>
-                  <div className="text-xs text-gray-500">{p.email}</div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-600">{p.eventoVinculado}</td>
-                <td className="px-6 py-4">
-                  {p.checkIn ? (
-                    <span className="flex items-center gap-1 text-green-600 text-sm font-medium"><CheckCircle2 size={16}/> Confirmado</span>
-                  ) : (
-                    <span className="flex items-center gap-1 text-gray-400 text-sm"><XCircle size={16}/> Pendente</span>
-                  )}
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button 
-                      onClick={() => setTransferindo(p)}
-                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center justify-center"
-                      title="Transferir Participante"
-                    >
-                      <ArrowLeftRight size={18} />
-                    </button>
-                    <button 
-                      onClick={() => removerParticipante(p.id)}
-                      className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors flex items-center justify-center"
-                      title="Remover Participante"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
+            {filteredParticipants.length > 0 ? (
+              filteredParticipants.map((p) => (
+                <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-6 py-4">
+                    <div className="font-medium text-gray-900">{p.nome}</div>
+                    <div className="text-xs text-gray-500">{p.email}</div>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">{p.eventoVinculado}</td>
+                  <td className="px-6 py-4">
+                    {p.checkIn ? (
+                      <span className="flex items-center gap-1 text-green-600 text-sm font-medium"><CheckCircle2 size={16}/> Confirmado</span>
+                    ) : (
+                      <span className="flex items-center gap-1 text-gray-400 text-sm"><XCircle size={16}/> Pendente</span>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button 
+                        onClick={() => setTransferindo(p)}
+                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center justify-center"
+                        title="Transferir Participante"
+                      >
+                        <ArrowLeftRight size={18} />
+                      </button>
+                      <button 
+                        onClick={() => removerParticipante(p.id)}
+                        className="p-2 text-red-400 hover:bg-red-50 rounded-lg transition-colors flex items-center justify-center"
+                        title="Remover Participante"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="px-6 py-10 text-center text-gray-400">
+                  Nenhum participante encontrado com esses filtros.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
