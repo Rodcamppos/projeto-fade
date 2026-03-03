@@ -95,7 +95,7 @@ export function Dashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2 text-left">
           <h3 className="text-lg font-bold text-gray-900">Fluxo de Check-in (24h)</h3>
           <span className="text-[10px] w-fit font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase tracking-wider">
-            Sincronizado: Brasília
+            Sincronizado com o Horário de Brasília
           </span>
         </div>
         <div className="h-[300px] w-full">
