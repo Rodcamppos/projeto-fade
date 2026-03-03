@@ -10,7 +10,7 @@ const EVENTOS_MOCK: Evento[] = [
 ];
 
 const PARTICIPANTES_MOCK: Participante[] = [
-  { id: '1', nome: 'Rodrigo Campos', email: 'rodrigo@email.com', eventoVinculado: 'Workshop React FADE', checkIn: true },
+  { id: '1', nome: 'Rodrigo Campos', email: 'rodrigo@email.com', eventoVinculado: 'Workshop React FADE', checkIn: true, dataCheckin: new Date().toISOString() },
   { id: '2', nome: 'Maria Silva', email: 'maria@email.com', eventoVinculado: 'Simpósio de Tecnologia', checkIn: false },
 ];
 
@@ -50,13 +50,17 @@ export function Participantes() {
     });
   }, [participantes, searchTerm, checkInFilter]);
 
-  // Função para realizar o Check-in Manual
   const alternarCheckIn = (id: string) => {
     setParticipantes(prev => prev.map(p => {
       if (p.id === id) {
         const novoStatus = !p.checkIn;
         toast.success(novoStatus ? "Check-in realizado manualmente!" : "Check-in revertido.");
-        return { ...p, checkIn: novoStatus };
+        
+        return { 
+          ...p, 
+          checkIn: novoStatus,
+          dataCheckin: novoStatus ? new Date().toISOString() : undefined 
+        };
       }
       return p;
     }));
@@ -170,7 +174,6 @@ export function Participantes() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        {/* BOTÃO DE CHECK-IN MANUAL */}
                         <button 
                           onClick={() => alternarCheckIn(p.id)}
                           className={`p-2 rounded-lg transition-colors flex items-center justify-center ${

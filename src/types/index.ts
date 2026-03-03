@@ -21,4 +21,5 @@ export interface Participante {
   email: string;
   eventoVinculado: string;
   checkIn: boolean;
+  dataCheckin?: string;
 }

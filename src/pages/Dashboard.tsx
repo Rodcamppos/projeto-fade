@@ -54,17 +54,23 @@ export function Dashboard() {
       timeZone: 'America/Sao_Paulo'
     });
 
-    return Array.from({ length: 7 }).map((_, i) => {
-      const horasSubtraidas = (6 - i) * 4; 
-      const dataPonto = new Date(agora.getTime() - horasSubtraidas * 60 * 60 * 1000);
-      const horaFormatada = formatter.format(dataPonto);
-      
+    const intervalos = Array.from({ length: 7 }).map((_, i) => {
+      return new Date(agora.getTime() - (6 - i) * 4 * 60 * 60 * 1000);
+    });
+
+    return intervalos.map(pontoTemporal => {
+      const totalAteEstePonto = participantes.filter(p => {
+        if (!p.checkIn || !p.dataCheckin) return false;
+        const dataAcao = new Date(p.dataCheckin);
+        return dataAcao <= pontoTemporal;
+      }).length;
+
       return {
-        hora: horaFormatada,
-        total: checkinsRealizados
+        hora: formatter.format(pontoTemporal),
+        total: totalAteEstePonto
       };
     });
-  }, [checkinsRealizados]);
+  }, [participantes]);
 
   if (loading) {
     return (
