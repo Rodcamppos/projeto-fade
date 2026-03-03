@@ -58,11 +58,12 @@ export function Dashboard() {
       return new Date(agora.getTime() - (6 - i) * 4 * 60 * 60 * 1000);
     });
 
-    return intervalos.map(pontoTemporal => {
+    return intervalos.map((pontoTemporal, index) => {
       const totalAteEstePonto = participantes.filter((p: Participante) => {
         if (!p.checkIn || !p.dataCheckin) return false;
         const dataAcao = new Date(p.dataCheckin);
-        return dataAcao <= pontoTemporal;
+        const margem = index === 6 ? 1000 : 0;
+        return dataAcao.getTime() <= (pontoTemporal.getTime() + margem);
       }).length;
 
       return {
