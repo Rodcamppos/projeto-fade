@@ -54,4 +54,4 @@ Acesse http://localhost:5173.
 
 O projeto utiliza uma estrutura modular separando componentes de UI, páginas de negócio e utilitários de validação (src/utils/checkinValidator.ts). Analogamente, a segurança é garantida por um componente PrivateRoute que pude criar ao longo do código que intercepta o acesso de usuários não autenticados.
 
-Desenvolvido por: Rodrigo Campos - Estudante de Engenharia de Computação pela Escola Politécnica de Pernambuco (Poli-UPE)
+Desenvolvido por: Rodrigo Campos - Estudante de Engenharia de Computação pela Escola Politécnica de Pernambuco (POLI-UPE)
