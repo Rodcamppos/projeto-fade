@@ -1,6 +1,6 @@
 ## 👨‍💻 Sistema de Eventos (Painel do Organizador) - Desafio Técnico FADE
 
-🌐 Acesse a aplicação em produção aqui: 
+[🌐 Acesse a aplicação em Deploy aqui.](https://projeto-fade-55avtcw1d-rodcamppos-projects.vercel.app)
 
 Aplicação web desenvolvida em React 19 e TypeScript para gerenciamento de eventos, participantes e configurações de check-in. Este projeto foi estruturado para atender aos critérios de alta maturidade técnica e escalabilidade exigidos no desafio técnico em questão.
 
