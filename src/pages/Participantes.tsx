@@ -50,6 +50,18 @@ export function Participantes() {
     });
   }, [participantes, searchTerm, checkInFilter]);
 
+  // Função para realizar o Check-in Manual
+  const alternarCheckIn = (id: string) => {
+    setParticipantes(prev => prev.map(p => {
+      if (p.id === id) {
+        const novoStatus = !p.checkIn;
+        toast.success(novoStatus ? "Check-in realizado manualmente!" : "Check-in revertido.");
+        return { ...p, checkIn: novoStatus };
+      }
+      return p;
+    }));
+  };
+
   const executarTransferencia = (novoEventoNome: string) => {
     if (!transferindo) return;
     setParticipantes(prev => prev.map(p => 
@@ -158,6 +170,17 @@ export function Participantes() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
+                        {/* BOTÃO DE CHECK-IN MANUAL */}
+                        <button 
+                          onClick={() => alternarCheckIn(p.id)}
+                          className={`p-2 rounded-lg transition-colors flex items-center justify-center ${
+                            p.checkIn ? 'text-green-600 hover:bg-green-50' : 'text-gray-400 hover:text-blue-600 hover:bg-blue-50'
+                          }`}
+                          title={p.checkIn ? "Reverter Check-in" : "Realizar Check-in Manual"}
+                        >
+                          <CheckCircle2 size={18} />
+                        </button>
+
                         <button 
                           onClick={() => setTransferindo(p)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex items-center justify-center"
