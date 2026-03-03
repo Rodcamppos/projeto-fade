@@ -59,11 +59,10 @@ export function Dashboard() {
       const dataPonto = new Date(agora.getTime() - horasSubtraidas * 60 * 60 * 1000);
       const horaFormatada = formatter.format(dataPonto);
       const progresso = (i + 1) / 7;
-      const totalSimulado = Math.round(checkinsRealizados * progresso);
-
+      
       return {
         hora: horaFormatada,
-        total: totalSimulado
+        total: Math.round(checkinsRealizados * progresso)
       };
     });
   }, [checkinsRealizados]);
@@ -80,23 +79,23 @@ export function Dashboard() {
 
   return (
     <Layout>
-      <div className="mb-8">
+      <div className="mb-8 text-left">
         <h1 className="text-2xl font-bold text-gray-900">Olá, Organizador FADE</h1>
         <p className="text-gray-500 font-sans">Acompanhe o desempenho dos seus eventos em tempo real.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard title="Total Inscritos" value={totalInscritos.toLocaleString()} icon={Users} color="bg-blue-600" />
+        <StatCard title="Total Inscritos" value={totalInscritos} icon={Users} color="bg-blue-600" />
         <StatCard title="Eventos Ativos" value={eventosAtivos} icon={Calendar} color="bg-indigo-600" />
         <StatCard title="Check-ins Realizados" value={checkinsRealizados} icon={CheckCircle} color="bg-green-600" />
         <StatCard title="Taxa de Presença" value={taxaPresenca} icon={Clock} color="bg-amber-500" />
       </div>
 
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2 text-left">
           <h3 className="text-lg font-bold text-gray-900">Fluxo de Check-in (24h)</h3>
           <span className="text-[10px] w-fit font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase tracking-wider">
-            Sincronizado: Horário de Brasília
+            Sincronizado: Brasília
           </span>
         </div>
         <div className="h-[300px] w-full">
@@ -111,9 +110,7 @@ export function Dashboard() {
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
               <XAxis dataKey="hora" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
               <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
-              <Tooltip 
-                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
-              />
+              <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }} />
               <Area type="monotone" dataKey="total" stroke="#2563eb" strokeWidth={3} fillOpacity={1} fill="url(#colorTotal)" />
             </AreaChart>
           </ResponsiveContainer>
