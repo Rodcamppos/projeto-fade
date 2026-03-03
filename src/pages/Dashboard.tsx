@@ -59,7 +59,7 @@ export function Dashboard() {
     });
 
     return intervalos.map(pontoTemporal => {
-      const totalAteEstePonto = participantes.filter(p => {
+      const totalAteEstePonto = participantes.filter((p: Participante) => {
         if (!p.checkIn || !p.dataCheckin) return false;
         const dataAcao = new Date(p.dataCheckin);
         return dataAcao <= pontoTemporal;
