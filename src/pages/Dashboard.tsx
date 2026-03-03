@@ -80,7 +80,7 @@ export function Dashboard() {
   return (
     <Layout>
       <div className="mb-8 text-left">
-        <h1 className="text-2xl font-bold text-gray-900">Olá, Organizador FADE</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Olá, Organizador</h1>
         <p className="text-gray-500 font-sans">Acompanhe o desempenho dos seus eventos em tempo real.</p>
       </div>
 
