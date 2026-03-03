@@ -75,7 +75,8 @@ export function Dashboard() {
         <p className="text-gray-500 font-sans">Acompanhe o desempenho dos seus eventos em tempo real.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Grid Responsivo: 1 coluna no mobile, 2 no tablet (sm), 4 no desktop (lg) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard title="Total Inscritos" value={totalInscritos.toLocaleString()} icon={Users} color="bg-blue-600" />
         <StatCard title="Eventos Ativos" value={eventosAtivos} icon={Calendar} color="bg-indigo-600" />
         <StatCard title="Check-ins Realizados" value={checkinsRealizados} icon={CheckCircle} color="bg-green-600" />
@@ -83,9 +84,9 @@ export function Dashboard() {
       </div>
 
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
           <h3 className="text-lg font-bold text-gray-900">Fluxo de Check-in (Hoje)</h3>
-          <span className="text-xs font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase tracking-wider">
+          <span className="text-[10px] w-fit font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase tracking-wider">
             Atualizado Agora
           </span>
         </div>
@@ -99,8 +100,8 @@ export function Dashboard() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-              <XAxis dataKey="hora" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
-              <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12}} />
+              <XAxis dataKey="hora" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
+              <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
               <Tooltip 
                 contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
               />

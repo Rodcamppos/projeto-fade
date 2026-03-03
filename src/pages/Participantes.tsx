@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Layout } from '../components/Layout';
-import { Search, ArrowLeftRight, CheckCircle2, XCircle, UserPlus, X, Trash2, Filter } from 'lucide-react';
+import { Search, ArrowLeftRight, CheckCircle2, XCircle, UserPlus, X, Trash2, Filter, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Participante, Evento } from '../types/index';
 
@@ -177,8 +177,18 @@ export function Participantes() {
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="px-6 py-10 text-center text-gray-400">
-                  Nenhum participante encontrado com esses filtros.
+                <td colSpan={4} className="px-6 py-12 text-center">
+                  <div className="flex flex-col items-center justify-center space-y-3">
+                    <div className="p-3 bg-gray-50 rounded-full">
+                      <Users size={40} className="text-gray-300" />
+                    </div>
+                    <div className="max-w-xs mx-auto">
+                      <h3 className="text-sm font-semibold text-gray-900">Lista de presença vazia</h3>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Não encontramos participantes. Você pode cadastrar novos ou verificar os filtros de busca.
+                      </p>
+                    </div>
+                  </div>
                 </td>
               </tr>
             )}
