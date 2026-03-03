@@ -4,6 +4,12 @@
 
 Aplicação web desenvolvida em React 19 e TypeScript para gerenciamento de eventos, participantes e configurações de check-in. Este projeto foi estruturado para atender aos critérios de alta maturidade técnica e escalabilidade exigidos no desafio técnico em questão.
 
+**🔐 E-mail**: `admin@fade.org.br`
+
+**🔑 Senha**: `123456`
+
+### Nota sobre a segurança cibernética abordada: Por se tratar de um ambiente de demonstração técnica, as credenciais administrativas são fixas para facilitar o acesso dos avaliadores. Em um ambiente de produção real, o sistema utilizaria um sistema de criptografia de ponta para poder efetuar o armazenamento de senhas e a integração com os demais serviços.
+
 ### 💻 Tecnologias
 
 1. React 19 & Vite v7: Usei as versões mais recentes para garantir que o sistema seja rápido e moderno.
@@ -26,7 +32,7 @@ Configuração de Check-in:
 - Validador de janelas de tempo, impedindo conflitos entre regras obrigatórias com o mesmo intervalo de tempo (na mesma hora).
 - Alertas visuais que notificam imediatamente o sistema ao detectar inconsistências na configuração.
 
-### 🚀 Instalação e Uso
+### 🚀 Instalação e Uso (Em caso de uso direto na máquina)
 
 Primeiro, é necessário instalar as dependências:
 
@@ -51,8 +57,5 @@ As credenciais administrativas para acessar o sistema, configuradas unicamente e
 ### 📐 Arquitetura
 
 O projeto utiliza uma estrutura modular separando componentes de UI, páginas de negócio e utilitários de validação (src/utils/checkinValidator.ts). Analogamente, a segurança é garantida por um componente PrivateRoute que pude criar ao longo do código que intercepta o acesso de usuários não autenticados.
-
-### Nota sobre a segurança cibernética abordada: Por se tratar de um ambiente de demonstração técnica, as credenciais administrativas são fixas para facilitar o acesso dos avaliadores. Em um ambiente de produção real, o sistema utilizaria um sistema de criptografia de ponta para poder efetuar o armazenamento de senhas e a integração com os demais serviços.
-
 
 Desenvolvido por: Rodrigo Campos - Estudante de Engenharia de Computação pela Escola Politécnica de Pernambuco (Poli-UPE)
