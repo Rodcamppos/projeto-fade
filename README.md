@@ -50,7 +50,7 @@ As credenciais administrativas para acessar o sistema, configuradas unicamente e
 
 O projeto utiliza uma estrutura modular separando componentes de UI, páginas de negócio e utilitários de validação (src/utils/checkinValidator.ts). Analogamente, a segurança é garantida por um componente PrivateRoute que pude criar ao longo do código que intercepta o acesso de usuários não autenticados.
 
-### Nota sobre Segurança Cibernética: > Por se tratar de um ambiente de demonstração técnica, as credenciais administrativas são fixas para facilitar o acesso dos avaliadores. Em um ambiente de produção real, o sistema utilizaria um sistema de criptografia de ponta para poder efetuar o armazenamento de senhas e a integração com os demais serviços.
+### Nota sobre a segurança cibernética abordada: Por se tratar de um ambiente de demonstração técnica, as credenciais administrativas são fixas para facilitar o acesso dos avaliadores. Em um ambiente de produção real, o sistema utilizaria um sistema de criptografia de ponta para poder efetuar o armazenamento de senhas e a integração com os demais serviços.
 
 
 Desenvolvido por: Rodrigo Campos - Estudante de Engenharia de Computação pela Escola Politécnica de Pernambuco (Poli-UPE)
