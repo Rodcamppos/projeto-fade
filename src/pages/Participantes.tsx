@@ -20,11 +20,20 @@ export function Participantes() {
     return salvo ? JSON.parse(salvo) : PARTICIPANTES_MOCK;
   });
 
+  const [eventos] = useState<Evento[]>(() => {
+    const salvo = localStorage.getItem('@fade:eventos');
+    return salvo ? JSON.parse(salvo) : EVENTOS_MOCK;
+  });
+
   const [searchTerm, setSearchTerm] = useState('');
   const [checkInFilter, setCheckInFilter] = useState<'Todos' | 'Confirmado' | 'Pendente'>('Todos');
   const [transferindo, setTransferindo] = useState<Participante | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [novoParticipante, setNovoParticipante] = useState({ nome: '', email: '', eventoVinculado: EVENTOS_MOCK[0].nome });
+  const [novoParticipante, setNovoParticipante] = useState({ 
+    nome: '', 
+    email: '', 
+    eventoVinculado: eventos[0]?.nome || '' 
+  });
 
   useEffect(() => {
     localStorage.setItem('@fade:participantes', JSON.stringify(participantes));
@@ -52,14 +61,27 @@ export function Participantes() {
 
   const handleCadastrar = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(novoParticipante.email)) {
+      toast.error("Por favor, insira um e-mail válido.");
+      return;
+    }
+
+    if (participantes.some(p => p.email === novoParticipante.email)) {
+      toast.error("Este e-mail já está cadastrado.");
+      return;
+    }
+
     const criado: Participante = {
       ...novoParticipante,
       id: Math.random().toString(36).substr(2, 9),
       checkIn: false
     };
+    
     setParticipantes([criado, ...participantes]);
     setIsModalOpen(false);
-    setNovoParticipante({ nome: '', email: '', eventoVinculado: EVENTOS_MOCK[0].nome });
+    setNovoParticipante({ nome: '', email: '', eventoVinculado: eventos[0]?.nome || '' });
     toast.success("Participante cadastrado!");
   };
 
@@ -197,7 +219,7 @@ export function Participantes() {
                   value={novoParticipante.eventoVinculado}
                   onChange={e => setNovoParticipante({...novoParticipante, eventoVinculado: e.target.value})}
                 >
-                  {EVENTOS_MOCK.map(ev => (
+                  {eventos.map(ev => (
                     <option key={ev.id} value={ev.nome}>{ev.nome}</option>
                   ))}
                 </select>
@@ -221,7 +243,7 @@ export function Participantes() {
               Selecione o novo evento para <strong>{transferindo.nome}</strong>.
             </p>
             <div className="space-y-3">
-              {EVENTOS_MOCK.map(evento => (
+              {eventos.map(evento => (
                 <button
                   key={evento.id}
                   disabled={evento.nome === transferindo.eventoVinculado}

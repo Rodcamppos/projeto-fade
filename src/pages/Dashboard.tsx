@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Layout } from '../components/Layout';
 import { Users, Calendar, CheckCircle, Clock } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -19,7 +19,6 @@ const StatCard = ({ title, value, icon: Icon, color }: any) => (
 );
 
 export function Dashboard() {
-  // Lógica Dinâmica: Lendo dados reais do LocalStorage
   const [eventos] = useState<Evento[]>(() => {
     const salvo = localStorage.getItem('@fade:eventos');
     return salvo ? JSON.parse(salvo) : [];
@@ -30,7 +29,13 @@ export function Dashboard() {
     return salvo ? JSON.parse(salvo) : [];
   });
 
-  // Cálculos Automáticos baseados nos dados
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const totalInscritos = participantes.length;
   const eventosAtivos = eventos.filter(e => e.status === 'Ativo').length;
   const checkinsRealizados = participantes.filter(p => p.checkIn).length;
@@ -41,18 +46,32 @@ export function Dashboard() {
     return `${Math.round(taxa)}%`;
   }, [checkinsRealizados, totalInscritos]);
 
-  // Mock de dados para o gráfico (pode ser expandido futuramente)
-  const chartData = [
-    { hora: '08:00', total: Math.floor(checkinsRealizados * 0.1) },
-    { hora: '10:00', total: Math.floor(checkinsRealizados * 0.4) },
-    { hora: '12:00', total: Math.floor(checkinsRealizados * 0.2) },
-    { hora: '14:00', total: Math.floor(checkinsRealizados * 0.3) },
-  ];
+  const chartData = useMemo(() => {
+    const horas = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'];
+    
+    return horas.map((hora, index) => {
+      const progresso = (index + 1) / horas.length;
+      return {
+        hora,
+        total: Math.round(checkinsRealizados * progresso)
+      };
+    });
+  }, [checkinsRealizados]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Olá, Rodrigo Campos</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Olá, Organizador FADE</h1>
         <p className="text-gray-500 font-sans">Acompanhe o desempenho dos seus eventos em tempo real.</p>
       </div>
 

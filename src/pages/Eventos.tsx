@@ -82,20 +82,22 @@ export function Eventos() {
   };
 
   const removerEvento = (id: string) => {
-    setEventos(eventos.filter(e => e.id !== id));
-    toast.success("Evento removido.");
+    if (window.confirm("Tem certeza que deseja remover este evento? Esta ação afetará os participantes vinculados.")) {
+      setEventos(eventos.filter(e => e.id !== id));
+      toast.success("Evento removido.");
+    }
   };
 
   return (
     <Layout>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Gerenciamento de Eventos</h1>
-          <p className="text-gray-600">Visualize e organize seus próximos eventos.</p>
+          <h1 className="text-2xl font-bold text-gray-900">Gerenciamento de Eventos</h1>
+          <p className="text-gray-500 font-sans">Visualize e organize seus próximos eventos.</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium shadow-sm"
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all font-medium shadow-sm"
         >
           <Plus size={20} /> Novo Evento
         </button>
