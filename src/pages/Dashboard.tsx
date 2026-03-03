@@ -58,11 +58,15 @@ export function Dashboard() {
       const horasSubtraidas = (6 - i) * 4; 
       const dataPonto = new Date(agora.getTime() - horasSubtraidas * 60 * 60 * 1000);
       const horaFormatada = formatter.format(dataPonto);
-      const progresso = (i + 1) / 7;
       
+      // Correção da Progressão:
+      // O último ponto (i === 6) agora retorna exatamente o valor real de checkinsRealizados,
+      // eliminando distorções no horário atual de Brasília.
+      const totalSimulado = i === 6 ? checkinsRealizados : Math.round(checkinsRealizados * (i / 6));
+
       return {
         hora: horaFormatada,
-        total: Math.round(checkinsRealizados * progresso)
+        total: totalSimulado
       };
     });
   }, [checkinsRealizados]);
